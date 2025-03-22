@@ -1,0 +1,45 @@
+version: "3.8"
+
+services:
+  redis:
+    image: redis:latest
+    container_name: redis_container
+    ports:
+      - "6379:6379"
+    restart: always
+
+  postgres:
+    image: postgres:latest
+    container_name: postgres_container
+    env_file:
+      - .env  # Load environment variables from .env
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: R2KBLkAvuR4PHNY3MNXi
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+    restart: always
+
+  worker:
+    build: .
+    container_name: celery_worker
+    command: bash -c "sleep 5 && celery -A app.celery_config.celery_app worker --loglevel=info"
+    depends_on:
+      - redis
+      - postgres
+    env_file:
+      - .env  # Load environment variables from .env
+
+  api:
+    build: .
+    container_name: fastapi_app
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    ports:
+      - "8000:8000"
+    depends_on:
+      - redis
+      - postgres
+      - worker
+    env_file:
+      - .env  # Load environment variables from .env
