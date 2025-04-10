@@ -1,9 +1,9 @@
 # Bulk Image Compression API
 
-    <div align="center">
-        <img alt="Visitor Stats" 
-            src="https://widgetbite.com/stats/<PriyamNGoyal>"/>  
-    </div>
+<div align="center">
+    <img alt="Visitor Stats" 
+        src="https://widgetbite.com/stats/<PriyamNGoyal>"/>  
+</div>
 
 
 This is a FastAPI application for bulk image processing that allows users to upload CSV files containing product information and images. The images are processed asynchronously, compressed, and stored in an AWS S3 bucket. The application also provides an API for checking the status of image processing.
