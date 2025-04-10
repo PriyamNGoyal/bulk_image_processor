@@ -2,8 +2,6 @@
 
 This is a FastAPI application for bulk image processing that allows users to upload CSV files containing product information and images. The images are processed asynchronously, compressed, and stored in an AWS S3 bucket. The application also provides an API for checking the status of image processing.
 
-![Repo Views](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/PriyamNGoyal/bulk_image_processor/main/views.json)
-
 ## Features
 
 * Upload CSV files with product names and image URLs.
