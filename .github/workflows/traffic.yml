@@ -31,6 +31,8 @@ jobs:
           echo "{\"label\": \"Repo Views\", \"message\": \"${{ steps.getTraffic.outputs.views }}\"}" > views.json
 
       - name: Commit and push updates
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
