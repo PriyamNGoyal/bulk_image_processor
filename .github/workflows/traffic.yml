@@ -1,0 +1,24 @@
+name: GitHub Views Counter
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # every day at midnight UTC
+  workflow_dispatch:
+
+jobs:
+  update-views:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Get Repo Views
+        uses: guilhem/gh-traffic@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          output-file: views.json
+      - name: Commit views.json
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add views.json
+          git commit -m "Update views.json"
+          git push
