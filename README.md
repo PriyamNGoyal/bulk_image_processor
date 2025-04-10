@@ -54,3 +54,7 @@ This will build and start the containers for PostgreSQL, Redis, and the FastAPI 
 #### 5. [Code Documentaton](https://docs.google.com/document/d/1jQzjQnKQsgVLiJQLtZsGGJt4Ho3VGyB1YPoOf_YCeyQ/edit?usp=sharing)
 #### 6. [Api Documentaton](https://documenter.getpostman.com/view/36986396/2sAYkHoHtR)
 #### 7. [Asynchronous Workers Documentation](https://docs.google.com/document/d/1p5f81hiQNdhA_oXzbY0J-oumBoBn1bx2XJIXj23qn_Q/edit?usp=sharing)
+
+
+
+![Repo Views](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FPriyamNGoyal%2Fbulk_image_processor&count_bg=%2379C83D&title_bg=%23555555&icon=github.svg&icon_color=%23FFFFFF&title=views&edge_flat=false)
