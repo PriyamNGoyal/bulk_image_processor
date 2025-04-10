@@ -16,13 +16,12 @@ jobs:
         id: getTraffic
         uses: actions/github-script@v6
         with:
+          github-token: ${{ secrets.GH_PAT }}   # use PAT instead of default token
           script: |
-            // Get page views using the GitHub Traffic API
             const viewsResponse = await github.rest.repos.getViews({
               owner: context.repo.owner,
               repo: context.repo.repo
             });
-            // Extract the total view count
             const views = viewsResponse.data.count;
             console.log('Total views:', views);
             return { views: views };
