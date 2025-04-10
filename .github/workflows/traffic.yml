@@ -1,24 +1,41 @@
-name: GitHub Views Counter
+name: Update Repo Traffic Badge
 
 on:
   schedule:
-    - cron: '0 0 * * *' # every day at midnight UTC
-  workflow_dispatch:
+    - cron: '0 0 * * *' # Runs daily at midnight UTC
+  workflow_dispatch:   # Allows manual triggering
 
 jobs:
-  update-views:
+  update-traffic:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: Get Repo Views
-        uses: guilhem/gh-traffic@v1
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Get Repository Traffic Data
+        id: getTraffic
+        uses: actions/github-script@v6
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          output-file: views.json
-      - name: Commit views.json
+          script: |
+            // Get page views using the GitHub Traffic API
+            const viewsResponse = await github.rest.repos.getViews({
+              owner: context.repo.owner,
+              repo: context.repo.repo
+            });
+            // Extract the total view count
+            const views = viewsResponse.data.count;
+            console.log('Total views:', views);
+            return { views: views };
+
+      - name: Write views to JSON file
+        run: |
+          echo "{\"label\": \"Repo Views\", \"message\": \"${{ steps.getTraffic.outputs.views }}\"}" > views.json
+
+      - name: Commit and push updates
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
           git add views.json
-          git commit -m "Update views.json"
+          # If there is nothing to commit, this command will fail harmlessly
+          git commit -m "Update traffic views badge" || echo "No changes to commit"
           git push
